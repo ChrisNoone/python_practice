@@ -3,5 +3,5 @@
 from PIL import Image
 
 im = Image.open("source/img/fox.jpg")
-width, height = im.size
-print (width, height)
+# im.show()
+print im.format
