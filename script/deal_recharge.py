@@ -8,7 +8,7 @@ import pymysql
 
 def get_users():
     # pwd = input('请输入数据库密码：')
-    pwd = 'MvozNyb4fnZbAcjmAcMpgtCo'
+    pwd = ''
     db = pymysql.connect('rm-3nsj79cd3oaiu72x9vo.mysql.rds.aliyuncs.com', 'dscp', pwd,
                          'dscp', charset='utf8')
     cursor = db.cursor()
