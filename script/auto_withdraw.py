@@ -68,10 +68,11 @@ def withdraw(user, url):
     dr.quit()
 
 
-url = 'https://online.baifu-tech.net/home'
-users = ['demo01', 'demo02', 'demo0329', 'artee24']
-# url = 'https://fusion.spmobileapi.net/home'
-# users = ['super01', 'super06', 'super07', 'super08', 'super09']
+# url = 'https://online.baifu-tech.net/home'
+# users = ['demo01', 'demo02', 'demo0329', 'artee24']
+
+url = 'https://fusion.spmobileapi.net/home'
+users = ['super01', 'super06', 'super07', 'super08', 'super09']
 for u in users:
     threading.Thread(target=withdraw, args=(u, url)).start()
 print('开始多线程执行...')

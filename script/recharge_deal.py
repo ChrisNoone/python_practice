@@ -8,7 +8,7 @@ import pymysql
 
 def get_users():
     # pwd = input('请输入数据库密码：')
-    pwd = ''
+    pwd = 'MvozNyb4fnZbAcjmAcMpgtCo'
     db = pymysql.connect('rm-3nsj79cd3oaiu72x9vo.mysql.rds.aliyuncs.com', 'dscp', pwd,
                          'dscp', charset='utf8')
     cursor = db.cursor()
@@ -21,7 +21,6 @@ def get_users():
 
 
 def login(dr, *args):
-    dr.implicitly_wait(20)
     dr.find_element_by_xpath('//input[@placeholder="用户名"]').send_keys(args[0])
     dr.find_element_by_xpath('//input[@placeholder="密码"]').send_keys(args[1])
     dr.find_element_by_xpath('//input[@placeholder="验证码"]').click()
@@ -35,7 +34,6 @@ def login(dr, *args):
 
 
 def deal_online(dr, users):
-    dr.implicitly_wait(20)
     dr.find_element_by_xpath('//a[contains(text(), "线上入款")]').click()
     sleep(3)
     try:
@@ -58,7 +56,6 @@ def deal_online(dr, users):
 
 
 def deal_company(dr, users):
-    dr.implicitly_wait(20)
     dr.find_element_by_xpath('//a[contains(text(), "公司入款")]').click()
     sleep(3)
     try:
@@ -80,13 +77,15 @@ def deal_company(dr, users):
         print(e)
 
 
-user_data = get_users()
-url = 'https://demo.dggamesmanager.net/#/home/login'
-login_data = ('qa', '123456')
-# user_data = ['super01', 'super02', 'super03', 'super04', 'super05', 'super06', 'super07', 'super08', 'super09', 'super11', 'super15']
-# url = 'https://fusion.spgamesmanager.net/#/home/login'
-# login_data = ('super', '123456')
+# user_data = get_users()
+# url = 'https://demo.dggamesmanager.net/#/home/login'
+# login_data = ('qa', '123456')
+
+user_data = ['super01', 'super02', 'super03', 'super04', 'super05', 'super06', 'super07', 'super08', 'super09', 'super11', 'super15']
+url = 'https://fusion.spgamesmanager.net/#/home/login'
+login_data = ('super', '123456')
 driver = webdriver.Chrome()
+driver.implicitly_wait(10)
 driver.get(url)
 driver.maximize_window()
 sleep(3)

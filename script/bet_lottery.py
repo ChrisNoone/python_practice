@@ -18,7 +18,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 def get_users():
     # pwd = input('请输入数据库密码：')
-    pwd = ''
+    pwd = 'MvozNyb4fnZbAcjmAcMpgtCo'
     db = pymysql.connect('rm-3nsj79cd3oaiu72x9vo.mysql.rds.aliyuncs.com', 'dscp', pwd,
                          'dscp', charset='utf8')
     cursor = db.cursor()
@@ -55,8 +55,9 @@ def login(dr):
 
 
 def bet(dr):
-    dr.find_element_by_xpath('//a[contains(text(), "购彩大厅")]').click()
+    # dr.find_element_by_xpath('//a[contains(text(), "购彩大厅")]').click()
     # dr.find_element_by_xpath('//a[contains(text(), "数字彩")]').click()
+    dr.find_element_by_xpath('//div[@class="navList"]/div[@class="nav-dglobby"]/a').click()
     sleep(1)
     handles = dr.window_handles
     dr.switch_to.window(handles[1])
@@ -68,7 +69,7 @@ def bet(dr):
     dr.find_element_by_xpath('//input[@placeholder="单注金额"]').click()
     dr.find_element_by_xpath('//input[@placeholder="单注金额"]').send_keys(Keys.BACK_SPACE)
     sleep(1)
-    num = random.randint(10, 50)
+    num = random.randint(20, 100)
     dr.find_element_by_xpath('//input[@placeholder="单注金额"]').send_keys(num)
     # 拖动返利条
     actions = ActionChains(dr)
@@ -87,10 +88,15 @@ def logout(dr):
     sleep(2)
 
 
-url = 'https://online.baifu-tech.net/home'
-users = get_users()
+# url = 'https://online.baifu-tech.net/home'
+# users = get_users()
 # users = ['super01', 'super02', 'super03', 'super04', 'super05', 'super06', 'super07', 'super08', 'super09', 'super11', 'super15']
-# url = 'https://fusion.spmobileapi.net/home'
+
+users = []
+with open('user.txt', 'r')as f:
+    for line in f:
+        users.append(line.rstrip('\n'))
+url = 'https://fusion.spmobileapi.net/home'
 
 driver = webdriver.Chrome()
 driver.implicitly_wait(20)

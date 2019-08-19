@@ -14,7 +14,7 @@ import traceback
 
 def get_users():
     # pwd = input('请输入数据库密码：')
-    pwd = ''
+    pwd = 'MvozNyb4fnZbAcjmAcMpgtCo'
     db = pymysql.connect('rm-3nsj79cd3oaiu72x9vo.mysql.rds.aliyuncs.com', 'dscp', pwd,
                          'dscp', charset='utf8')
 
@@ -121,10 +121,10 @@ def friend_recharge(dr):
     sleep(1)
 
 
-users = get_users()
-url = 'https://online.baifu-tech.net/home'
-# users = ['super01', 'super02', 'super03', 'super04', 'super05', 'super06', 'super07', 'super08', 'super09', 'super11', 'super15']
-# url = 'https://fusion.spmobileapi.net/home'
+# users = get_users()
+# url = 'https://online.baifu-tech.net/home'
+users = ['super01', 'super02', 'super03', 'super04', 'super05', 'super06', 'super07', 'super08', 'super09', 'super11', 'super15']
+url = 'https://fusion.spmobileapi.net/home'
 driver = webdriver.Chrome()
 driver.implicitly_wait(20)
 driver.get(url)
