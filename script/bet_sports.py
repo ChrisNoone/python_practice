@@ -48,13 +48,16 @@ def logout(dr):
 
 
 driver = webdriver.Chrome()
+driver.maximize_window()
 driver.implicitly_wait(10)
 driver.get('https://fusion.spmobileapi.net/splobby#/home')
-driver.maximize_window()
-users = []
-with open('user.txt', 'r')as f:
-    for line in f:
-        users.append(line.rstrip('\n'))
+# users = []
+# with open('user.txt', 'r')as f:
+#     for line in f:
+#         users.append(line.rstrip('\n'))
+
+users = ['super01', 'super02', 'super03', 'super04', 'super05', 'super06', 'super07', 'super08', 'super09', 'super11', 'super15']
+
 for i in users:
     login(driver, i)
     bet(driver)
