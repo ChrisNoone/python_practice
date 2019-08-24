@@ -80,15 +80,16 @@ def bet(dr, user, n):
 
 
 users = ['super01', 'super02', 'super03', 'super04', 'super05', 'super06', 'super07', 'super08', 'super09', 'super11', 'super15']
-driver = webdriver.Chrome()
-driver.maximize_window()
-for u in users:
-    try:
-        login(driver, u)
-        bet(driver, u, 7)
-    except:
-        print('执行出现异常，账号：%s' % u)
-        driver.get_screenshot_as_file('d:\\%s.png' % u)
-        traceback.print_exc()
-    logout(driver)
-driver.quit()
+while 1:
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    for u in users:
+        try:
+            login(driver, u)
+            bet(driver, u, 7)
+        except:
+            print('执行出现异常，账号：%s' % u)
+            driver.get_screenshot_as_file('d:\\%s.png' % u)
+            traceback.print_exc()
+        logout(driver)
+    driver.quit()
