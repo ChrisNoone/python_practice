@@ -79,7 +79,12 @@ def bet(dr, user, n):
         sleep(1)
 
 
-users = ['super01', 'super02', 'super03', 'super04', 'super05', 'super06', 'super07', 'super08', 'super09', 'super11', 'super15']
+# SELECT u.user_name '用户',ue.ue_account_balance '账户余额' FROM ds_user u JOIN ds_user_extend ue ON u.user_id = ue.user_id WHERE u.user_id IN (
+# SELECT user_id FROM ds_user WHERE user_name IN (
+# 't071710', 'super01', 'super02', 'super03', 'super04', 'super05', 'super06', 'super07', 'super08', 'super09', 'super11', 'super15'))
+
+users = ['t071710', 'super01', 'super02', 'super03', 'super04', 'super05', 'super06', 'super07', 'super08', 'super09', 'super11', 'super15']
+# users = ['t071710']
 while 1:
     driver = webdriver.Chrome()
     driver.maximize_window()
