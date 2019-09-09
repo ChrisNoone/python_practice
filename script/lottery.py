@@ -83,8 +83,8 @@ def bet(dr, user, n):
 # SELECT user_id FROM ds_user WHERE user_name IN (
 # 't071710', 'super01', 'super02', 'super03', 'super04', 'super05', 'super06', 'super07', 'super08', 'super09', 'super11', 'super15'))
 
-users = ['t071710', 'super01', 'super02', 'super03', 'super04', 'super05', 'super06', 'super07', 'super08', 'super09', 'super11', 'super15']
-# users = ['t071710']
+users = ['super01', 'super02', 'super03', 'super04', 'super05', 'super06', 'super07', 'super08', 'super09', 'super11', 'super15']
+# users = ['super08', 'super08', 'super08', 'super08']
 while 1:
     driver = webdriver.Chrome()
     driver.maximize_window()
@@ -94,7 +94,7 @@ while 1:
             bet(driver, u, 7)
         except:
             print('执行出现异常，账号：%s' % u)
-            driver.get_screenshot_as_file('d:\\%s.png' % u)
+            # driver.get_screenshot_as_file('d:\\%s.png' % u)
             traceback.print_exc()
         logout(driver)
     driver.quit()

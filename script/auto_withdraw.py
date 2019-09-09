@@ -62,7 +62,7 @@ def withdraw(user, url):
                 dr.get('https://online.baifu-tech.net/memberCenter#/home/withdraw')
                 continue
             else:
-                dr.get_screenshot_as_file('d:\\%s.png' % user)
+                # dr.get_screenshot_as_file('d:\\%s.png' % user)
                 traceback.print_exc()
                 break
     dr.quit()

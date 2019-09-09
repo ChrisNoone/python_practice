@@ -6,30 +6,20 @@ import string
 import pymysql
 
 
-def get_paychannel():
+def get_paychannel(headers):
     url = 'https://fusion.spgamesmanager.net/admin/PayCenterChannel/getPayCenterChannelList'
-    headers = {
-        'auth-token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjE5Mywibmlja25hbWUiOiJzdXBlciIsInVzZXJBZ2VudCI6Ik1vemlsbGFcLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdFwvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lXC83Ni4wLjM4MDkuMTAwIFNhZmFyaVwvNTM3LjM2IiwibmVlZFR3b0F1dGgiOjAsImV4cCI6MTU2NjU2MTkzMH0.OINqV14UXfTSH-sTSGeXXdq17o2U0uDtmkSzrFkXTR0',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
-        'cookie': 'PHPSESSID=bd603141bfd419b97db091bc816fe98e'
-    }
     res = requests.post(url, headers=headers)
     r = json.loads(res.text)
-    list = r['data']['list']
+    li = r['data']['list']
     paychannels = []
-    for i in list:
+    for i in li:
         tmp = (i['payChannelId'], i['name'])
         paychannels.append(tmp)
     return paychannels
 
 
-def get_paytype(paychannels):
+def get_paytype(paychannels, headers):
     url = 'https://fusion.spgamesmanager.net/admin/PayCenterChannel/getUsablePayTypeList'
-    headers = {
-        'auth-token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjE5Mywibmlja25hbWUiOiJzdXBlciIsInVzZXJBZ2VudCI6Ik1vemlsbGFcLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdFwvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lXC83Ni4wLjM4MDkuMTAwIFNhZmFyaVwvNTM3LjM2IiwibmVlZFR3b0F1dGgiOjAsImV4cCI6MTU2NjU2MTkzMH0.OINqV14UXfTSH-sTSGeXXdq17o2U0uDtmkSzrFkXTR0',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36',
-        'cookie': 'PHPSESSID=bd603141bfd419b97db091bc816fe98e'
-    }
     sqldata = []
     for i in paychannels:
         body = {'channelId': int(i[0])}
@@ -86,6 +76,11 @@ def dict_to_str(data):
 
 
 if __name__ == '__main__':
-    channels = get_paychannel()
-    get_paytype(channels)
+    headers = {
+        'auth-token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjE5Mywibmlja25hbWUiOiJzdXBlciIsInVzZXJBZ2VudCI6Ik1vemlsbGFcLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdFwvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lXC83Ni4wLjM4MDkuMTMyIFNhZmFyaVwvNTM3LjM2IiwibmVlZFR3b0F1dGgiOjAsImV4cCI6MTU2ODAxMjgwMH0.h1lQIiA3aVDp3kN-FsmKvdc5yIKLaVMfPPT_cttKDBI',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36',
+        'cookie': 'PHPSESSID=e85a9cfab72ea23651d9d7781c4a23b8'
+    }
+    channels = get_paychannel(headers)
+    get_paytype(channels, headers)
     # data_to_database(paytype)
