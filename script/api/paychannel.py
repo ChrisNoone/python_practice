@@ -42,6 +42,7 @@ def get_paytype(paychannels, headers):
         if len(sqldata) % 20 == 0:
             data_to_database(sqldata)
             sqldata = []
+    data_to_database(sqldata)
 
 
 def fix_str(strx):
@@ -70,6 +71,11 @@ def data_to_database(data):
 
 
 def dict_to_str(data):
+    """
+    将字典转成元祖
+    :param data: 字典
+    :return:
+    """
     # li = list(data.values())
     # return '"' + '","'.join(li) + '"'
     return tuple(data.values())
@@ -77,10 +83,14 @@ def dict_to_str(data):
 
 if __name__ == '__main__':
     headers = {
-        'auth-token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjE5Mywibmlja25hbWUiOiJzdXBlciIsInVzZXJBZ2VudCI6Ik1vemlsbGFcLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdFwvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lXC83Ni4wLjM4MDkuMTMyIFNhZmFyaVwvNTM3LjM2IiwibmVlZFR3b0F1dGgiOjAsImV4cCI6MTU2ODAxMjgwMH0.h1lQIiA3aVDp3kN-FsmKvdc5yIKLaVMfPPT_cttKDBI',
+        'auth-token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjE5Mywibmlja25hbWUiOiJzdXBlciIsInVzZXJBZ2VudCI6Ik1vemlsbGFcLzUuMCAoV2luZG93cyBOVCAxMC4wOyBXaW42NDsgeDY0KSBBcHBsZVdlYktpdFwvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lXC83Ni4wLjM4MDkuMTMyIFNhZmFyaVwvNTM3LjM2IiwibmVlZFR3b0F1dGgiOjAsImV4cCI6MTU2ODE4NDEyOH0.XIV5OJz0Il0cjylycilrq9i7xAxhelbtwpq0MUoF5TQ',
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36',
         'cookie': 'PHPSESSID=e85a9cfab72ea23651d9d7781c4a23b8'
     }
+    conn = pymysql.connect('127.0.0.1', 'root', 'root', 'spider')
+    cursor = conn.cursor()
+    cursor.execute('delete from paychannel')
+    conn.close()
     channels = get_paychannel(headers)
     get_paytype(channels, headers)
     # data_to_database(paytype)
