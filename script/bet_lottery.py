@@ -97,6 +97,7 @@ with open('user.txt', 'r')as f:
     for line in f:
         users.append(line.rstrip('\n'))
 url = 'https://fusion.spmobileapi.net/home'
+# print(users)
 
 driver = webdriver.Chrome()
 driver.implicitly_wait(20)

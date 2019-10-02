@@ -9,9 +9,9 @@ import random
 def login(dr, member='super', pwd='123456'):
     dr.find_element_by_xpath('//input[@placeholder="用户名"]').send_keys(member)
     dr.find_element_by_xpath('//input[@placeholder="密码"]').send_keys(pwd)
-    # dr.find_element_by_xpath('//input[@placeholder="验证码"]').click()
-    # sleep(5)
-    dr.find_element_by_xpath('//input[@placeholder="验证码"]').send_keys('1234')
+    dr.find_element_by_xpath('//input[@placeholder="验证码"]').click()
+    sleep(5)
+    # dr.find_element_by_xpath('//input[@placeholder="验证码"]').send_keys('1234')
     sleep(1)
     dr.find_element_by_xpath('//button[contains(text(), "登录")]').click()
     sleep(2)
@@ -28,6 +28,9 @@ def change_pwd(dr, user):
     dr.find_element_by_xpath('//input[@placeholder="请输入用户名"]').send_keys(Keys.CONTROL+'a')
     dr.find_element_by_xpath('//input[@placeholder="请输入用户名"]').send_keys(Keys.BACKSPACE)
     dr.find_element_by_xpath('//input[@placeholder="请输入用户名"]').send_keys(user)
+    dr.find_element_by_xpath('//div[contains(text(), "模糊匹配")]').click()
+    sleep(0.5)
+    dr.find_element_by_xpath('//li[contains(text(), "精确匹配")]').click()
     dr.find_element_by_xpath('//span[contains(text(), "搜 索")]/..').click()
     sleep(1)
     dr.find_element_by_xpath('//span[contains(text(), "会员详情")]').click()
@@ -120,8 +123,8 @@ with open('user.txt', 'r')as f:
     for line in f:
         users.append(line.rstrip('\n'))
 for i in users:
-    # change_pwd(driver, i)
+    change_pwd(driver, i)
     # change_realname(driver, i)
     # change_financial(driver, i)
-    add_number(driver, i)
+    # add_number(driver, i)
 driver.quit()
