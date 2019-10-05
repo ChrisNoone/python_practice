@@ -47,7 +47,7 @@ def login(dr, user):
     dr.find_element_by_xpath('//input[@placeholder="请输入密码"]').send_keys('kosun123')
     dr.find_element_by_xpath('//input[@placeholder="请输入验证码"]').send_keys('4444')
     dr.find_element_by_xpath('//button[contains(text(), "登录")]').click()
-    sleep(2)
+    sleep(3)
 
 
 def bet(dr):
@@ -100,6 +100,6 @@ for u in users:
         print('执行出现异常，账号：%s' % u)
         # driver.get_screenshot_as_file('d:\\%s.png' % u)
         traceback.print_exc()
+        break
     logout(driver)
 driver.quit()
-

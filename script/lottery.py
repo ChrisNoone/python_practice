@@ -91,5 +91,6 @@ while 1:
             print('执行出现异常，账号：%s' % u)
             # driver.get_screenshot_as_file('d:\\%s.png' % u)
             traceback.print_exc()
+            break
         logout(driver)
     driver.quit()
