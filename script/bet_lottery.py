@@ -12,10 +12,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
 
-# TODO: 自动公司入款，及确认入款
-# TODO: 自动在线入款，及确认入款
-# TODO: 自动投注增加拖动返利条
-
 def get_users():
     # pwd = input('请输入数据库密码：')
     pwd = 'MvozNyb4fnZbAcjmAcMpgtCo'
@@ -41,27 +37,21 @@ def close(dr):
     dr.switch_to.window(handles[0])
 
 
-def login(dr):
-    dr.find_element_by_xpath('//input[@placeholder="用户名"]').send_keys(u)
-    dr.find_element_by_xpath('//input[@placeholder="密码"]').send_keys('kosun123')
-    dr.find_element_by_xpath('//input[@placeholder="验证码"]').send_keys('4444')
-    dr.find_element_by_xpath('//button[contains(text(), "登录")]').click()
-    try:
-        WebDriverWait(driver, 10).until(ec.element_to_be_clickable((By.XPATH, '//div[@class="dialog"]/i')))
-        dr.find_element_by_xpath('//div[@class="dialog"]/i').click()
-    except:
-        pass
+def login(dr, user):
+    WebDriverWait(driver, 10).until(ec.element_to_be_clickable((By.XPATH, '//div[contains(text(), "请您先登录/注册")]')))
+    dr.find_element_by_xpath('//div[contains(text(), "请您先登录/注册")]').click()
     sleep(1)
+    dr.find_element_by_xpath('//input[@placeholder="请输入用户名"]').send_keys(Keys.CONTROL + 'a')
+    dr.find_element_by_xpath('//input[@placeholder="请输入用户名"]').send_keys(Keys.BACKSPACE)
+    dr.find_element_by_xpath('//input[@placeholder="请输入用户名"]').send_keys(user)
+    dr.find_element_by_xpath('//input[@placeholder="请输入密码"]').send_keys('kosun123')
+    dr.find_element_by_xpath('//input[@placeholder="请输入验证码"]').send_keys('4444')
+    dr.find_element_by_xpath('//button[contains(text(), "登录")]').click()
+    sleep(2)
 
 
 def bet(dr):
-    # dr.find_element_by_xpath('//a[contains(text(), "购彩大厅")]').click()
-    # dr.find_element_by_xpath('//a[contains(text(), "数字彩")]').click()
-    dr.find_element_by_xpath('//div[@class="navList"]/div[@class="nav-dglobby"]/a').click()
-    sleep(1)
-    handles = dr.window_handles
-    dr.switch_to.window(handles[1])
-    dr.find_element_by_xpath('//div[contains(text(), "六合彩")]').click()
+    dr.find_element_by_xpath('//div[@class="hallMenu"]/div[contains(text(), "六合彩")]').click()
     sleep(1)
     dr.find_element_by_xpath(
         '//div[contains(text(), "分分六")]/../../following-sibling::div//div[contains(text(), "立即购彩")]').click()
@@ -79,38 +69,36 @@ def bet(dr):
     dr.find_element_by_xpath('//button[contains(text(), "随机1注")]').click()
     dr.find_element_by_xpath('//button[contains(text(), "确认投注")]').click()
     sleep(1)
+    dr.refresh()
     return num
 
 
 def logout(dr):
-    close(dr)
-    dr.find_element_by_xpath('//span[contains(text(), "退出")]').click()
+    dr.get('https://fusion.spmobileapi.net/dglobby#')
+    sleep(1)
+    WebDriverWait(driver, 10).until(ec.element_to_be_clickable((By.XPATH, '//*[contains(text(), "退出")]')))
+    dr.find_element_by_xpath('//*[contains(text(), "退出")]').click()
     sleep(2)
 
-
-# url = 'https://online.baifu-tech.net/home'
-# users = get_users()
-# users = ['super01', 'super02', 'super03', 'super04', 'super05', 'super06', 'super07', 'super08', 'super09', 'super11', 'super15']
 
 users = []
 with open('user.txt', 'r')as f:
     for line in f:
         users.append(line.rstrip('\n'))
-url = 'https://fusion.spmobileapi.net/home'
-# print(users)
+url = 'https://fusion.spmobileapi.net/dglobby#/'
 
 driver = webdriver.Chrome()
-driver.implicitly_wait(20)
+driver.implicitly_wait(15)
 driver.get(url)
 driver.maximize_window()
 for u in users:
     try:
-        login(driver)
+        login(driver, u)
         money = bet(driver)
         print('%s下注%s元.' % (u, str(money)))
     except:
         print('执行出现异常，账号：%s' % u)
-        driver.get_screenshot_as_file('d:\\%s.png' % u)
+        # driver.get_screenshot_as_file('d:\\%s.png' % u)
         traceback.print_exc()
     logout(driver)
 driver.quit()
