@@ -26,8 +26,8 @@ def get_users():
     return result
 
 
-def login(dr, user):
-    url = 'https://fusion.spmobileapi.net/dglobby#'
+def login(dr, user, d):
+    url = 'https://' + d + '/dglobby#'
     dr.get(url)
     WebDriverWait(driver, 10).until(ec.element_to_be_clickable((By.XPATH, '//div[contains(text(), "请您先登录/注册")]')))
     dr.find_element_by_xpath('//div[contains(text(), "请您先登录/注册")]').click()
@@ -47,17 +47,17 @@ def logout(dr):
     sleep(2)
 
 
-def gen_url(n):
+def gen_url(n, d):
     lotterys = ['24', '29', '31', '16', '25', '56', '46']
-    url = 'https://fusion.spmobileapi.net/dglobby#/play/'
+    url = 'https://' + d + '/dglobby#/play/'
     urls = []
     for i in range(n):
         urls.append(url + lotterys[i])
     return urls
 
 
-def bet(dr, user, n):
-    urls = gen_url(n)
+def bet(dr, user, n, d):
+    urls = gen_url(n, d)
     for url in urls:
         dr.get(url)
         sleep(3)
@@ -72,21 +72,23 @@ def bet(dr, user, n):
         el = dr.find_element_by_xpath('//span[contains(text(), "赔率")]/following-sibling::div/div[4]')
         actions.drag_and_drop_by_offset(el, '150', '0').perform()
         sleep(1)
-        dr.find_element_by_xpath('//button[contains(text(), "随机1注")]').click()
+        dr.find_element_by_xpath('//button[contains(text(), "随机5注")]').click()
         dr.find_element_by_xpath('//button[contains(text(), "确认投注")]').click()
         print('%s，下注%s元，彩种id[%s].' % (user, str(num), url[-2:]))
         dr.refresh()
         sleep(1)
 
 
-users = ['super01', 'super02', 'super03', 'super04', 'super05', 'super06', 'super07', 'super08', 'super09', 'super11', 'super15']
+domain = 'online.baifu-tech.net'
+# users = ['super01', 'super02', 'super03', 'super04', 'super05', 'super06', 'super07', 'super08', 'super09', 'super11', 'super15']
+users = ['artee01','artee11','artee12','artee13','artee21','artee22','artee23','artee24','artee25','artee26','artee27','artee28','artee29','artee31','artee32','artee33','artee34','artee35','artee36','artee37','artee38']
 while 1:
     driver = webdriver.Chrome()
     driver.maximize_window()
     for u in users:
         try:
-            login(driver, u)
-            bet(driver, u, 7)
+            login(driver, u, domain)
+            bet(driver, u, 7, domain)
         except:
             print('执行出现异常，账号：%s' % u)
             # driver.get_screenshot_as_file('d:\\%s.png' % u)

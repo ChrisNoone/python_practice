@@ -92,7 +92,7 @@ sleep(3)
 try:
     login(driver, *login_data)
     deal_company(driver, user_data)
-    deal_company(driver, user_data)
+    # deal_company(driver, user_data)
     deal_online(driver, user_data)
 except Exception as e:
     print(e)

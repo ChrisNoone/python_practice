@@ -32,8 +32,8 @@ def login(dr):
     dr.find_element_by_xpath('//input[@placeholder="密码"]').send_keys('kosun123')
     dr.find_element_by_xpath('//input[@placeholder="验证码"]').send_keys('4444')
     dr.find_element_by_xpath('//button[contains(text(), "登录")]').click()
-    WebDriverWait(driver, 10, 0.5).until(ec.element_to_be_clickable((by.By.XPATH, '//div[@class="dialog"]/i')))
-    dr.find_element_by_xpath('//div[@class="dialog"]/i').click()
+    # WebDriverWait(driver, 10, 0.5).until(ec.element_to_be_clickable((by.By.XPATH, '//div[@class="dialog"]/i')))
+    # dr.find_element_by_xpath('//div[@class="dialog"]/i').click()
     sleep(1)
 
 
@@ -134,11 +134,11 @@ for u in users:
         login(driver)
         online_recharge(driver)
         company_recharge(driver)
-        friend_recharge(driver)
+        # friend_recharge(driver)
         print('用户 %s 充值完成.' % u)
     except:
         print('执行出现异常，账号：%s' % u)
-        driver.get_screenshot_as_file('d:\\%s.png' % u)
+        # driver.get_screenshot_as_file('d:\\%s.png' % u)
         traceback.print_exc()
     logout(driver)
 driver.quit()
