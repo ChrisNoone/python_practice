@@ -3,5 +3,4 @@
 from PIL import Image
 
 im = Image.open("source/img/fox.jpg")
-# im.show()
-print im.format
+im.show()

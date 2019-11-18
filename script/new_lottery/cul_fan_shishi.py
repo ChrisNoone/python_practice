@@ -19,8 +19,10 @@ def cul_fan(haoma):
 
 def get_haoma_from_sql(issue_no):
     pwd = 'Vp8WlTSsNnsQ1aWibWM='
-    db = pymysql.connect('fusion.mysql.polardb.rds.aliyuncs.com', 'dscp', pwd,
-                         'dscp', charset='utf8')
+    # db = pymysql.connect('fusion.mysql.polardb.rds.aliyuncs.com', 'dscp', pwd,
+    #                      'dscp', charset='utf8')
+    db = pymysql.connect('rm-3nsj79cd3oaiu72x9vo.mysql.rds.aliyuncs.com', 'dscp', 'MvozNyb4fnZbAcjmAcMpgtCo', 'dscp',
+                         charset='utf8')
     cursor = db.cursor()
     cursor.execute('SELECT lottery_issue_prize_num FROM ds_lottery_issue WHERE lottery_id = (SELECT lottery_id FROM ds_lottery WHERE lottery_name = "五分时时番摊") AND lottery_issue_no = %s;' % issue_no)
     data = cursor.fetchall()
